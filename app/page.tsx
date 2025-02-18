@@ -110,7 +110,7 @@ export default function Page() {
         transition={{ delay: 1.5, duration: 0.5 }}
       >
         <div className="flex items-center justify-between text-sm text-muted-foreground max-w-7xl mx-auto">
-          <div>© 2025, a0.dev</div>
+          <div>© 2025, uixie</div>
           <div className="flex items-center gap-4">
             {["Privacy", "Contact Us"].map((item, index) => (
               <motion.div
