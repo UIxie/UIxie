@@ -6,22 +6,24 @@ export const Logo = () => {
   const { isOpen } = useSidebar();
 
   return (
-    <div className="p-4">
+    <div className="p-4 flex justify-center">
+      {/* Contenedor del logo */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{
           opacity: 1,
           scale: 1,
-          x: isOpen ? 0 : -20, // Mover ligeramente hacia la izquierda cuando está cerrado
+          x: 0, // Mantener el logo centrado sin moverlo horizontalmente
         }}
         transition={{
-          type: "spring", // Usa un efecto de rebote
+          type: "spring",
           stiffness: 100,
           damping: 15,
           duration: 0.3,
         }}
         className="flex items-center justify-center"
       >
+        {/* Texto completo cuando la barra lateral está abierta */}
         {isOpen ? (
           <motion.span
             initial={{ opacity: 0 }}
