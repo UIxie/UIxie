@@ -1,12 +1,18 @@
 "use client";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleSubscriptionClick = () => {
+    router.push("/pricing");
   };
 
   return (
@@ -26,7 +32,6 @@ export const Header = () => {
           <div className="text-xs text-muted-foreground">user@example.com</div>
         </div>
       </motion.div>
-
       {/* Dropdown Menu */}
       {isMenuOpen && (
         <motion.div
@@ -39,7 +44,7 @@ export const Header = () => {
           <div className="py-1">
             <button
               className="block w-full text-left px-4 py-2 text-sm text-foreground hover:bg-secondary transition-colors duration-300"
-              onClick={() => alert("My Subscription")}
+              onClick={handleSubscriptionClick}
             >
               My Subscription
             </button>

@@ -1,19 +1,24 @@
 "use client";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useSidebar } from "@/context/SidebarContext";
 
 export const Logo = () => {
   const { isOpen } = useSidebar();
+  const router = useRouter();
+
+  const handleLogoClick = () => {
+    router.push("/");
+  };
 
   return (
     <div className="p-4 flex justify-center">
-      {/* Contenedor del logo */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{
           opacity: 1,
           scale: 1,
-          x: 0, // Mantener el logo centrado sin moverlo horizontalmente
+          x: 0,
         }}
         transition={{
           type: "spring",
@@ -21,9 +26,9 @@ export const Logo = () => {
           damping: 15,
           duration: 0.3,
         }}
-        className="flex items-center justify-center"
+        className="flex items-center justify-center cursor-pointer"
+        onClick={handleLogoClick}
       >
-        {/* Texto completo cuando la barra lateral está abierta */}
         {isOpen ? (
           <motion.span
             initial={{ opacity: 0 }}

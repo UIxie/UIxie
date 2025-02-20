@@ -36,13 +36,12 @@ export const Sidebar = () => {
         duration: 0.5,
         ease: "easeInOut",
       }}
-      className="relative border-r border-border bg-card flex flex-col flex-shrink-0 h-screen"
+      className="relative border-border bg-custom-dark flex flex-col flex-shrink-0 h-screen"
     >
       <Logo />
       <NewChatButton />
       <CurrentChat chat={currentChat} />
       <RecentChats chats={recentChats} />
-      <ToggleButton />
     </motion.aside>
   );
 };
