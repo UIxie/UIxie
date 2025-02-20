@@ -10,12 +10,31 @@ import { Input } from "@/components/ui/input";
 export default function Page() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <div className="absolute top-4 right-4">
+        <motion.div
+          className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-secondary transition-colors duration-300 cursor-pointer"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">
+            U
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-sm font-medium text-foreground">User Name</div>
+            <div className="text-xs text-muted-foreground">
+              user@example.com
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
       <main className="flex-1 flex flex-col items-center justify-center px-4 text-center max-w-3xl mx-auto w-full gap-8">
         <motion.div
           className="space-y-4"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
         >
           <motion.div
             className="flex justify-center"
@@ -36,7 +55,7 @@ export default function Page() {
             className="text-4xl font-bold tracking-tighter text-white"
             animate={{ scale: [1, 1.05, 1] }}
             transition={{
-              duration: 2,
+              duration: 1.5,
               repeat: Number.POSITIVE_INFINITY,
               ease: "easeInOut",
             }}
@@ -47,7 +66,7 @@ export default function Page() {
             className="text-3xl font-semibold bg-gradient-to-r from-blue-500 to-blue-600 text-transparent bg-clip-text"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
+            transition={{ delay: 0.3, duration: 0.3 }}
           >
             Mobile apps in minutes.
           </motion.p>
@@ -57,7 +76,7 @@ export default function Page() {
           className="w-full max-w-xl relative"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.5 }}
+          transition={{ delay: 0.6, duration: 0.3 }}
         >
           <Input
             type="text"
@@ -77,7 +96,7 @@ export default function Page() {
           className="flex flex-wrap gap-2 justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
+          transition={{ delay: 0.9, duration: 0.3 }} // Cambiado de 1 a 0.9 y de 0.5 a 0.3
         >
           {[
             "Text Adventure",
@@ -89,7 +108,7 @@ export default function Page() {
               key={item}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2 + index * 0.1, duration: 0.3 }}
+              transition={{ delay: 1.2 + index * 0.1, duration: 0.3 }} // Cambiado de 0.3 a 0.2
             >
               <Button
                 variant="secondary"
@@ -107,7 +126,7 @@ export default function Page() {
         className="border-t border-border py-4 px-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.5 }}
+        transition={{ delay: 1.2, duration: 0.3 }} // Cambiado de 1.5 a 1.2 y de 0.5 a 0.3
       >
         <div className="flex items-center justify-between text-sm text-muted-foreground max-w-7xl mx-auto">
           <div>© 2025, uixie</div>
