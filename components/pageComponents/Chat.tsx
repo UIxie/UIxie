@@ -6,7 +6,7 @@ import { generateCode } from "@/api/gemini"; // Importa la función generateCode
 
 interface Message {
   text: string;
-  isUser: boolean; // Indica si el mensaje fue enviado por el usuario o generado por la API
+  isUser: boolean;
 }
 
 export default function Chat() {
