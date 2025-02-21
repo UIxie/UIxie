@@ -5,7 +5,6 @@ import { Logo } from "./Logo";
 import { NewChatButton } from "./NewChatButton";
 import { CurrentChat } from "./CurrentChat";
 import { RecentChats } from "./RecentChats";
-import { ToggleButton } from "./ToggleButton";
 import { Chat } from "@/types/sidebar";
 
 export const Sidebar = () => {

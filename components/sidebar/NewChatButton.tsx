@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation"; // Importar useRouter
 import { PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,10 +7,17 @@ import { useSidebar } from "@/context/SidebarContext";
 
 export const NewChatButton = () => {
   const { isOpen } = useSidebar();
+  const router = useRouter(); // Obtener el enrutador
+
+  // Función para manejar el clic en el botón
+  const handleButtonClick = () => {
+    router.push("/chat/"); // Redirigir a /chat/
+  };
 
   return (
     <div className="p-4">
       <Button
+        onClick={handleButtonClick} // Asignar la función al evento onClick
         className={`w-full bg-blue-500 hover:bg-blue-600 text-white transition-all duration-500 flex items-center justify-center ${
           !isOpen && "p-2"
         }`}
@@ -24,7 +32,6 @@ export const NewChatButton = () => {
         >
           <PlusCircle className={`w-4 h-4 ${!isOpen && "mx-auto"}`} />
         </motion.div>
-
         {/* Texto */}
         <AnimatePresence>
           {isOpen && (
