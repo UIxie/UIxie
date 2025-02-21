@@ -1,4 +1,3 @@
-// components/sidebar/Sidebar.tsx
 "use client";
 import { motion } from "framer-motion";
 import { useSidebar } from "@/context/SidebarContext";
@@ -11,8 +10,6 @@ import { Chat } from "@/types/sidebar";
 
 export const Sidebar = () => {
   const { isOpen } = useSidebar();
-
-  // Este data podría venir de un custom hook useChats() en el futuro
   const recentChats: Chat[] = [
     { id: 1, title: "Instagram Clone UI", timestamp: "2m ago" },
     { id: 2, title: "Portfolio Website", timestamp: "1h ago" },
@@ -36,7 +33,8 @@ export const Sidebar = () => {
         duration: 0.5,
         ease: "easeInOut",
       }}
-      className="relative border-border bg-custom-dark flex flex-col flex-shrink-0 h-screen"
+      className="fixed top-0 left-0 border-border bg-custom-dark flex flex-col h-screen overflow-y-auto"
+      style={{ zIndex: 10 }}
     >
       <Logo />
       <NewChatButton />
