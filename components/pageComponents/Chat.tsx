@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { ChatInput } from "@/components/chatElements/ChatInput";
 import { PreviewPanel } from "@/components/PreviewTabs/PreviewCode";
-import { generateCode } from "@/api/gemini"; // Importa la función generateCode
-import { motion, AnimatePresence } from "framer-motion"; // Importa motion y AnimatePresence
+import { generateCode } from "@/api/gemini";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Message {
   text: string;
@@ -12,7 +12,7 @@ interface Message {
 
 export default function Chat() {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [generatedCode, setGeneratedCode] = useState(""); // Código generado por la API
+  const [generatedCode, setGeneratedCode] = useState("");
   const [isPreviewOpen, setIsPreviewOpen] = useState(true);
 
   const handleSendMessage = async (message: string) => {
@@ -39,7 +39,6 @@ export default function Chat() {
   return (
     <div className="min-h-screen bg-background flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 flex flex-col border-border">
-        {/* Renderizar los mensajes */}
         <div className="flex-1 p-4 overflow-auto">
           {messages.length === 0 ? (
             <p className="text-muted-foreground text-center">
@@ -51,10 +50,10 @@ export default function Chat() {
                 {messages.map((message, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }} // Estado inicial de la animación
-                    animate={{ opacity: 1, y: 0 }} // Estado final de la animación
-                    exit={{ opacity: 0, y: -20 }} // Estado de salida (opcional)
-                    transition={{ duration: 0.5, ease: "easeOut" }} // Duración y tipo de transición
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
                     className={`p-3 rounded-lg ${
                       message.isUser
                         ? "bg-blue-900 text-white self-end"
