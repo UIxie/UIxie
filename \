@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Label from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,11 +20,11 @@ export default function LoginPage() {
   };
 
   const handleGoogleLogin = () => {
-    signIn("google", { callbackUrl: "/" });
+    console.log("Iniciando sesión con Google...");
   };
 
   const handleGitHubLogin = () => {
-    signIn("github", { callbackUrl: "/" });
+    console.log("Iniciando sesión con GitHub...");
   };
 
   return (
@@ -86,7 +85,7 @@ export default function LoginPage() {
                   placeholder="name@example.com"
                   required
                   className={cn(
-                    "pl-10 py-6 transition-all duration-300 focus:ring-2 focus:ring-blue-500",
+                    "pl-10 py-6",
                     isLoading && "opacity-50 pointer-events-none ",
                   )}
                   disabled={isLoading}
@@ -103,7 +102,7 @@ export default function LoginPage() {
                   placeholder="Enter your password"
                   required
                   className={cn(
-                    "pl-10 py-6 transition-all duration-300 focus:ring-2 focus:ring-blue-500",
+                    "pl-10 py-6",
                     isLoading && "opacity-50 pointer-events-none",
                   )}
                   disabled={isLoading}

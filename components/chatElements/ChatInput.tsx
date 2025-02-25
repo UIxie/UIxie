@@ -40,7 +40,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type your prompt here..."
-          className="min-h-[100px] pr-12 resize-none backdrop-blur-sm rounded-3xl text-white placeholder:text-gray-400 bg-custom-dark ml-3"
+          className="min-h-[100px] pr-14 resize-none backdrop-blur-sm border rounded-3xl text-white placeholder:text-gray-400 bg-custom-dark ml-3"
         />
       </motion.div>
       <motion.div

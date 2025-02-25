@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ChatInput } from "@/components/chatElements/ChatInput";
 import { PreviewPanel } from "@/components/PreviewTabs/PreviewCode";
 import { generateCode } from "@/api/gemini"; // Importa la función generateCode
+import { motion, AnimatePresence } from "framer-motion"; // Importa motion y AnimatePresence
 
 interface Message {
   text: string;
@@ -20,11 +21,9 @@ export default function Chat() {
 
     try {
       const response = await generateCode(message);
-
       setGeneratedCode(response);
     } catch (error) {
       console.error("Error al generar la respuesta:", error);
-
       const errorMessage: Message = {
         text: "Lo siento, no pude procesar tu solicitud.",
         isUser: false,
@@ -40,6 +39,7 @@ export default function Chat() {
   return (
     <div className="min-h-screen bg-background flex flex-col md:flex-row">
       <div className="w-full md:w-1/2 flex flex-col border-border">
+        {/* Renderizar los mensajes */}
         <div className="flex-1 p-4 overflow-auto">
           {messages.length === 0 ? (
             <p className="text-muted-foreground text-center">
@@ -47,23 +47,29 @@ export default function Chat() {
             </p>
           ) : (
             <div className="space-y-2">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`p-3 rounded-lg ${
-                    message.isUser
-                      ? "bg-blue-900 text-white self-end"
-                      : "bg-muted text-white self-start"
-                  }`}
-                >
-                  {message.text}
-                </div>
-              ))}
+              <AnimatePresence>
+                {messages.map((message, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }} // Estado inicial de la animación
+                    animate={{ opacity: 1, y: 0 }} // Estado final de la animación
+                    exit={{ opacity: 0, y: -20 }} // Estado de salida (opcional)
+                    transition={{ duration: 0.5, ease: "easeOut" }} // Duración y tipo de transición
+                    className={`p-3 rounded-lg ${
+                      message.isUser
+                        ? "bg-blue-900 text-white self-end"
+                        : "bg-muted text-white self-start"
+                    }`}
+                  >
+                    {message.text}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
           )}
         </div>
         {/* Input para enviar mensajes */}
-        <div className="p-4  bg-background">
+        <div className="p-4 bg-background">
           <ChatInput onSendMessage={handleSendMessage} />
         </div>
       </div>
