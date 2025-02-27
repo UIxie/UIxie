@@ -1,12 +1,43 @@
 "use client";
+
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado para controlar la autenticación
+  const [user, setUser] = useState<{
+    first_name: string;
+    last_name: string;
+    email: string;
+  } | null>(null); // Datos del usuario
   const router = useRouter();
+
+  // Verificar si existe un token en localStorage al cargar el componente
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchUserProfile(token);
+    }
+  }, []);
+
+  // Función para obtener los datos del usuario desde el backend
+  const fetchUserProfile = async (token: string) => {
+    try {
+      const response = await axios.get("http://localhost:5000/users/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const userData = response.data;
+      setUser(userData);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      localStorage.removeItem("token"); // Eliminar token inválido
+      setIsLoggedIn(false);
+    }
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,7 +48,10 @@ export const Header = () => {
   };
 
   const handleLogoutClick = () => {
-    setIsLoggedIn(false); // Simula el cierre de sesión
+    localStorage.removeItem("token"); // Eliminar el token del localStorage
+    setIsLoggedIn(false);
+    setUser(null);
+    router.push("/auth"); // Redirigir al usuario a la página de inicio de sesión
   };
 
   const handleSubscriptionClick = () => {
@@ -26,7 +60,7 @@ export const Header = () => {
 
   return (
     <div className="absolute top-4 right-4">
-      {isLoggedIn ? (
+      {isLoggedIn && user ? (
         <>
           <motion.div
             className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-secondary transition-colors duration-300 cursor-pointer"
@@ -36,15 +70,13 @@ export const Header = () => {
             onClick={toggleMenu}
           >
             <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">
-              U
+              {user.first_name[0].toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-sm font-medium text-foreground">
-                User Name
+                {user.first_name} {user.last_name}
               </div>
-              <div className="text-xs text-muted-foreground">
-                user@example.com
-              </div>
+              <div className="text-xs text-muted-foreground">{user.email}</div>
             </div>
           </motion.div>
           {/* Dropdown Menu */}

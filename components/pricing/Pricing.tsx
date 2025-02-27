@@ -19,9 +19,9 @@ const plans = [
       "1GB storage",
       "Basic analytics",
     ],
-    buttonText: "Get Started",
+    buttonText: "Your Current Plan",
     buttonVariant: "outline" as const,
-    href: "/register",
+    href: "#",
   },
   {
     name: "Pro",

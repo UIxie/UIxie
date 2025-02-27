@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import AuthHeader from "./AuthHeader";
 import AuthForm from "./AuthForm";
@@ -13,35 +14,49 @@ export default function AuthComponent() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const first_name = formData.get("first_name") as string;
-    const last_name = formData.get("last_name") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
     try {
-      const response = await axios.post("http://localhost:5000/users/create", {
-        first_name,
-        last_name,
-        email,
-        password,
-      });
+      if (isSignUp) {
+        const first_name = formData.get("first_name") as string;
+        const last_name = formData.get("last_name") as string;
 
-      console.log("Usuario creado:", response.data);
+        const response = await axios.post(
+          "http://localhost:5000/users/create",
+          {
+            first_name,
+            last_name,
+            email,
+            password,
+          },
+        );
 
-      alert("Registro exitoso");
+        console.log("Usuario creado:", response.data);
+        alert("Registro exitoso");
+      } else {
+        const response = await axios.post("http://localhost:5000/users/login", {
+          email,
+          password,
+        });
+
+        const { token } = response.data;
+        localStorage.setItem("token", token);
+
+        window.location.href = "http://localhost:3000/";
+      }
     } catch (error) {
-      console.error("Error al registrar usuario:", error);
-      alert("Error al registrar usuario");
+      console.error("Error:", error);
+      alert("Error al procesar la solicitud");
     } finally {
       setIsLoading(false);
     }
   };
-
   const handleGoogleLogin = () => {
     signIn("google", { callbackUrl: "/" });
   };
