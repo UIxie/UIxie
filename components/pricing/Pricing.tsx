@@ -20,7 +20,7 @@ const plans = [
       "Basic analytics",
     ],
     buttonText: "Your Current Plan",
-    buttonVariant: "outline" as const,
+    buttonVariant: "outlineDisabled" as const,
     href: "#",
   },
   {
