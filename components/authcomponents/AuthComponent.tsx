@@ -6,17 +6,40 @@ import AuthForm from "./AuthForm";
 import SocialDivider from "./SocialDivider";
 import SocialLogin from "./SocialLogin";
 import AuthToggle from "./AuthToggle";
+import axios from "axios";
 import { signIn } from "next-auth/react";
 
 export default function AuthComponent() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsLoading(false);
+
+    const formData = new FormData(e.currentTarget);
+    const first_name = formData.get("first_name") as string;
+    const last_name = formData.get("last_name") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    try {
+      const response = await axios.post("http://localhost:5000/users/create", {
+        first_name,
+        last_name,
+        email,
+        password,
+      });
+
+      console.log("Usuario creado:", response.data);
+
+      alert("Registro exitoso");
+    } catch (error) {
+      console.error("Error al registrar usuario:", error);
+      alert("Error al registrar usuario");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleGoogleLogin = () => {
@@ -43,7 +66,6 @@ export default function AuthComponent() {
         className="w-full max-w-sm space-y-6"
       >
         <AuthHeader isSignUp={isSignUp} />
-
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -55,14 +77,11 @@ export default function AuthComponent() {
             onSubmit={handleSubmit}
           />
         </motion.div>
-
         <SocialDivider />
-
         <SocialLogin
           onGoogleLogin={handleGoogleLogin}
           onGitHubLogin={handleGitHubLogin}
         />
-
         <AuthToggle
           isSignUp={isSignUp}
           onToggle={() => setIsSignUp(!isSignUp)}

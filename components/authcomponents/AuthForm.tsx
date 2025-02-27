@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { Eye, EyeOff, Lock, Mail, UserRoundPen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Label from "@/components/ui/label";
 import { motion } from "framer-motion";
 
 interface AuthFormProps {
@@ -25,12 +24,11 @@ export default function AuthForm({
     <form onSubmit={onSubmit} className="space-y-4">
       {isSignUp && (
         <>
-          {/* First Name Field */}
           <div className="space-y-2">
-            <Label htmlFor="firstName">First Name</Label>
             <div className="relative">
               <Input
                 id="firstName"
+                name="first_name"
                 type="text"
                 placeholder="Enter your name"
                 required
@@ -44,12 +42,11 @@ export default function AuthForm({
             </div>
           </div>
 
-          {/* Last Name Field */}
           <div className="space-y-2">
-            <Label htmlFor="lastName">Last Name</Label>
             <div className="relative">
               <Input
                 id="lastName"
+                name="last_name"
                 type="text"
                 placeholder="Enter your lastname"
                 required
@@ -65,12 +62,11 @@ export default function AuthForm({
         </>
       )}
 
-      {/* Email Field */}
       <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
         <div className="relative">
           <Input
             id="email"
+            name="email"
             type="email"
             placeholder="Enter your email"
             required
@@ -84,12 +80,11 @@ export default function AuthForm({
         </div>
       </div>
 
-      {/* Password Field */}
       <div className="space-y-2">
-        <Label htmlFor="password">Password</Label>
         <div className="relative">
           <Input
             id="password"
+            name="password"
             type={showPassword ? "text" : "password"}
             placeholder="Enter your password"
             required
@@ -119,7 +114,6 @@ export default function AuthForm({
         </div>
       </div>
 
-      {/* Forgot Password Link */}
       <div className="flex items-center justify-between">
         <Link
           href="/forgot-password"
@@ -129,7 +123,6 @@ export default function AuthForm({
         </Link>
       </div>
 
-      {/* Submit Button */}
       <Button
         type="submit"
         className="w-full py-4 text-base relative overflow-hidden transition-all duration-300"
