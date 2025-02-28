@@ -26,35 +26,17 @@
     --radius: 0.5rem;
   }
 
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: #1e1e1e;
-    border-radius: 10px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #616161;
-    border-radius: 10px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #9e9e9e;
-  }
-
-  .custom-scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: #616161 #1e1e1e;
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: none;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    cursor: grab;
   }
 }

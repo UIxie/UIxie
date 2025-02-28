@@ -1,5 +1,5 @@
 "use client";
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, MoreHorizontal } from "lucide-react"; // Importa MoreHorizontal
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSidebar } from "@/context/SidebarContext";
@@ -12,8 +12,12 @@ interface RecentChatsProps {
 export const RecentChats = ({ chats }: RecentChatsProps) => {
   const { isOpen } = useSidebar();
 
+  const handleIconClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className="flex-1 overflow-y-auto">
+    <div className="flex-1 overflow-y-auto custom-scrollbar">
       <AnimatePresence mode="wait">
         {isOpen ? (
           <motion.div
@@ -44,20 +48,28 @@ export const RecentChats = ({ chats }: RecentChatsProps) => {
                     ease: "easeInOut",
                   }}
                 >
-                  <Link
-                    href={`/chat/${chat.id}`}
-                    className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-secondary transition-colors duration-300 group"
-                  >
-                    <MessageSquare className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium truncate text-foreground">
-                        {chat.title}
+                  <div className="relative group">
+                    <Link
+                      href={`/chat/${chat.id}`}
+                      className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-secondary transition-colors duration-300"
+                    >
+                      <MessageSquare className="w-4 h-4 text-muted-foreground group-hover:text-foreground" />
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium truncate text-foreground">
+                          {chat.title}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {chat.timestamp}
+                        </div>
                       </div>
-                      <div className="text-xs text-muted-foreground">
-                        {chat.timestamp}
-                      </div>
+                    </Link>
+                    <div
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer"
+                      onClick={(e) => handleIconClick(e, chat.id)} // Maneja el clic en el ícono
+                    >
+                      <MoreHorizontal className="w-4 h-4 text-muted-foreground hover:text-foreground" />
                     </div>
-                  </Link>
+                  </div>
                 </motion.div>
               ))}
             </div>

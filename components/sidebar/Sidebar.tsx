@@ -5,6 +5,7 @@ import { Logo } from "./Logo";
 import { NewChatButton } from "./NewChatButton";
 import { CurrentChat } from "./CurrentChat";
 import { RecentChats } from "./RecentChats";
+import { SidebarToggle } from "./SidebarToggle";
 import { Chat } from "@/types/sidebar";
 
 export const Sidebar = () => {
@@ -13,6 +14,8 @@ export const Sidebar = () => {
     { id: 1, title: "Instagram Clone UI", timestamp: "2m ago" },
     { id: 2, title: "Portfolio Website", timestamp: "1h ago" },
     { id: 3, title: "E-commerce Dashboard", timestamp: "2h ago" },
+    { id: 4, title: "Mobile App Layout", timestamp: "1d ago" },
+
     { id: 4, title: "Mobile App Layout", timestamp: "1d ago" },
   ];
 
@@ -39,6 +42,7 @@ export const Sidebar = () => {
       <NewChatButton />
       <CurrentChat chat={currentChat} />
       <RecentChats chats={recentChats} />
+      <SidebarToggle />
     </motion.aside>
   );
 };
